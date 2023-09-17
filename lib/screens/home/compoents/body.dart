@@ -10,8 +10,16 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [Categories(), RecipeBundelCard()],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Categories(),
+          RecipeBundelCard(),
+          RecipeBundelCard(),
+          RecipeBundelCard(),
+          RecipeBundelCard(),
+        ],
+      ),
     );
   }
 }
@@ -27,6 +35,7 @@ class RecipeBundelCard extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 1.65,
       child: Container(
+        margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: recipeBundles[0].color,
             borderRadius: BorderRadius.circular(sizeConfig.defaultSize * 1.8)),
@@ -35,6 +44,7 @@ class RecipeBundelCard extends StatelessWidget {
               child: Padding(
             padding: EdgeInsets.all(sizeConfig.defaultSize * 2),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   recipeBundles[0].title,
@@ -53,7 +63,20 @@ class RecipeBundelCard extends StatelessWidget {
                     color: Colors.white54,
                   ),
                 ),
-                buildInfoRow()
+                SizedBox(
+                  height: sizeConfig.defaultSize * 2,
+                ),
+                buildInfoRow(
+                  iconsrc: 'assets/icons/pot.svg',
+                  text: '${recipeBundles[0].recipes} Recips',
+                ),
+                SizedBox(
+                  height: sizeConfig.defaultSize * 0.5,
+                ),
+                buildInfoRow(
+                  iconsrc: 'assets/icons/chef.svg',
+                  text: '${recipeBundles[0].chefs} Chefs',
+                ),
               ],
             ),
           )),
@@ -73,18 +96,18 @@ class RecipeBundelCard extends StatelessWidget {
     );
   }
 
-  Row buildInfoRow() {
+  Row buildInfoRow({required String iconsrc, text}) {
     return Row(
-                children: [
-                  SvgPicture.asset('assets/icons/chef.svg'),
-                  SizedBox(
-                    width: sizeConfig.defaultSize,
-                  ),
-                  Text(
-                    '95 Chefs',
-                    style: TextStyle(color: Colors.white),
-                  )
-                ],
-              );
+      children: [
+        SvgPicture.asset(iconsrc),
+        SizedBox(
+          width: sizeConfig.defaultSize,
+        ),
+        Text(
+          text,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        )
+      ],
+    );
   }
 }
